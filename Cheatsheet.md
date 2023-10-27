@@ -214,6 +214,8 @@ Linux Privilege Escalation:
             find /home/joe/Desktop -exec "/usr/bin/bash" -p \; (find example)
         Search for Binaries with CAPABILITIES:
             /usr/sbin/getcap -r / 2>/dev/null IF ANYthing is found with setuid+ep (effective and permitted) search on GTFOBins and then capabilities inside
+        SUDO abuse:
+            sudo -l and if any command appears do same thing as above about GTFOBins but sudo section
             
     Automated Testing:
         ./unix-privesc-check standard > output.txt (first download unix-privesc-check on target machine)
