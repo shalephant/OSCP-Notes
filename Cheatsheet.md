@@ -224,4 +224,19 @@ Password Shit:
 
             hydra -L users.txt -P /usr/share/wordlists/rockyou.txt ssh://192.168.211.202
             hydra -l user -P /usr/share/wordlists/rockyou.txt 192.168.50.201 http-post-form "/index.php:fm_usr=user&fm_pwd=^PASS^:Login failed. Invalid"
-            
+
+
+PORT FORWARDING AND SSH TUNNELING
+    Port Forwarding:
+
+            socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
+
+        scan local ips (that we get with ip route) with specific port with for loop in bash:
+            for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
+
+    SSH Local Tunneling:
+            ssh -N -L 0.0.0.0:4455:172.16.200.217:445 database_admin@10.4.200.215
+        check ports on listening machine:
+            ss -ntplu
+        Dynamic Tunneling:
+            ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
