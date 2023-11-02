@@ -370,3 +370,59 @@ metasploit autorun scripts:
     ls -l /usr/share/metasploit-framework/scripts/resource
     to run any:
     sudo msfconsole -r scipt.rc
+
+ACTIVE DIRECTORY:
+    Enum:
+
+        net user /domain
+        net user <username> /domain
+        net group /domain
+        net group "group name" /domain
+
+        [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain() (chech pdcroleowner)
+        to automate:
+            $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+            powershell -ep bypass
+            in a ps1 file (created via powershell ISE):
+                # Store the domain object in the $domainObj variable
+                $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()                
+                # Store the PdcRoleOwner name to the $PDC variable
+                $PDC = $domainObj.PdcRoleOwner.Name                
+                # Store the Distinguished Name variable into the $DN variable
+                $DN = ([adsi]'').distinguishedName           
+                $LDAP = "LDAP://$PDC/$DN"
+                $direntry = New-Object System.DirectoryServices.DirectoryEntry($LDAP)           
+                $dirsearcher = New-Object System.DirectoryServices.DirectorySearcher($direntry)
+                $dirsearcher.filter="samAccountType=805306368"
+                $result = $dirsearcher.FindAll()
+                Foreach($obj in $result)
+                {
+                    Foreach($prop in $obj.Properties)
+                    {
+                        $prop
+                    }                
+                    Write-Host "-------------------------------"
+                }
+
+                we can filter by the name:
+                    $dirsearcher.filter="name=jeffadmin"
+                    and change loop:
+                        $prop.memberof
+        PowerView:
+            PS C:\Tools> Import-Module .\PowerView.ps1
+            Get-NetDomain
+            Get-NetUser
+            Get-NetUser | select cn
+            Get-NetUser | select cn,pwdlastset,lastlogon
+            Get-NetGroup | select cn
+            Get-NetGroup "Sales Department" | select member
+
+            Get-NetComputer
+            Get-NetComputer | select operatingsystem,dnshostname
+        privs
+            Find-LocalAdminAccess
+            Get-NetSession -ComputerName files04 -Verbose
+        PsLoggon:
+            .\PsLoggedon.exe \\client74
+            
+            
