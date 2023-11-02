@@ -309,6 +309,9 @@ METASPLOET:
     for background:
         run -j
         jobs
+        sessions (shows sessions)
+        sessions -i 12 (choose a session)
+        
 after running Auxiliary module on a target, we can leverage vulns option by just typing: vulns
 after exploit crtl+z to send session in backround
 sessions -l to list sessions
