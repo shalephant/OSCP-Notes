@@ -27,6 +27,9 @@ Transfer File From Windows To Linux via ssh:
     
         1. sudo systemctl start ssh
         2. scp C:\Users\offsec\Desktop\malware.exe shaleph@192.168.45.162:/home/shaleph/OSCP 
+        or Download putty's scp - pscp.exe and run preferrably in C:\ root directory :         
+        c:\pscp c:\Users\name\Documents\file.txt shaleph@192.168.45.X:/home/shalep/OSCP/path/newname.txt
+ 
         
 file metadata analyzer:
 
