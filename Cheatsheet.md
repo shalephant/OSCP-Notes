@@ -494,7 +494,8 @@ ACTIVE DIRECTORY:
             download sharphound on compromised windows
             import-module .\sharphound.ps1
             Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
-
+            query exampl:
+                MATCH (m:Computer) RETURN m
 Atak:
     Mimi:
 
