@@ -211,6 +211,7 @@ Cross compileing c program into binary for 64bit Windows in Kali
             }
 
 Linux Privilege Escalation:
+    python3 -c 'import pty; pty.spawn("/bin/bash")'
     Manual Enumeration of OS:
         User context information:
 
