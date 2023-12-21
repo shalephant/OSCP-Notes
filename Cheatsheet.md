@@ -27,6 +27,9 @@ adittionals:
     SAM and SYSTEM hashes:
         secretsdump.py -sam SAM -system SYSTEM LOCAL
 
+    shell improve on python:
+        python3 -c 'import pty;pty.spawn("/bin/bash")' 
+
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
     
