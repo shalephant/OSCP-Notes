@@ -20,6 +20,9 @@ Windows User Add in admins with RDP access
     
 adittionals:
 
+    rustscan:
+        sudo docker run -it --rm --name rustscan rustscan/rustscan:2.1.1
+
     rev shellwith hta file:
         msfvenom ..... -f hta-sch -o shell.hta
         mshta.exe
