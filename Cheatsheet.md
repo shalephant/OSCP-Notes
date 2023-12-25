@@ -30,6 +30,12 @@ adittionals:
     shell improve on python:
         python3 -c 'import pty;pty.spawn("/bin/bash")' 
 
+    Keepass, kdbx file crack and kpcli use:
+        keepass2john Database.kdbx > kpjohn   
+        john kpjohn --wordlist=/usr/share/wordlists/fasttrack.txt
+        kpcli --kdb=Passwords.kdbx
+        show -f 0 (to show passwords)
+
 Transfer File From Windows To Linux via ssh:
     1.on linux 2. on windows:
     
