@@ -187,6 +187,7 @@ Windows Privesc:
         Running proccess only on RDP (if no high permission)
             Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
         Running processes for DLL hijack and unquoted service path attacks (both running and stopped processes (cant use stopped for DLL and service binary hijack):
+            Get-CimInstance -ClassName win32_service | Select Name,State,PathName
             wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
         Check for file permissions:
             icacls "C:\xampp\apache\bin\httpd.exe"
