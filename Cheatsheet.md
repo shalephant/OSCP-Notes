@@ -217,6 +217,7 @@ Windows Privesc:
     Abusin Scheduled Tasks:
         Display Tasks:
             schtasks /query /fo LIST /v
+            schtasks /query /fo LIST /v /TN "Task Name"
             Get-ScheduledTask
 
 Cross compileing c program into binary for 64bit Windows in Kali
