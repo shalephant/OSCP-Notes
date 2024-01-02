@@ -203,8 +203,10 @@ Windows Privesc:
         Check for file permissions:
             icacls "C:\xampp\apache\bin\httpd.exe"
         Search for files:
-            Get-ChildItem -Path C:\ -Include *.<file.extention> -File -Recurse -ErrorAction SilentlyContinue
-
+            pwrshell:
+                Get-ChildItem -Path C:\ -Include *.<file.extention> -File -Recurse -ErrorAction SilentlyContinue
+            cmd:
+                dir /s/b *.txt
         Commands Executed by user:
             Get-History
             (Get-PSReadlineOption).HistorySavePath
