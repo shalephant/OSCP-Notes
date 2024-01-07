@@ -29,8 +29,10 @@ adittionals:
     SAM and SYSTEM hashes:
         secretsdump.py -sam SAM -system SYSTEM LOCAL
 
-    shell improve on python:
+    shell upgrade:
         python3 -c 'import pty;pty.spawn("/bin/bash")' 
+        Ctrl + Z;
+        stty raw -echo ; fg
 
     Keepass, kdbx file crack and kpcli use:
         keepass2john Database.kdbx > kpjohn   
