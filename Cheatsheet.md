@@ -226,6 +226,8 @@ Windows Privesc:
 
         If whoami /priv shows SeChangeNotifyPrivilege enabled we can run this exploit:
             https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public
+            then follow its README:
+            https://github.com/CsEnox/SeManageVolumeExploit
 
     Abusin Scheduled Tasks:
         Display Tasks:
