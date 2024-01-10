@@ -94,6 +94,9 @@ Client side attack through mail with library using webdav:
         sudo swaks -t daniela@beyond.com -t jim@relia.com --from john@beyond.com --attach @config.Library-ms --server 192.168.234.189 --body @body.txt --header "Subject: Staging Script" --suppress-data -ap   
 Web App Pentest
 
+    subdomain fuzz:
+        ffuf -u http://example.com/ -w <wordlist of subdomains> -H 'Host: FUZZ.example.com' 
+        
     File Upload:
         https://www.youtube.com/watch?v=GnUfp6z_Vu4&list=PLmqenIp2RQciV955S2rqGAn2UOrR2NX-v&index=13
         
