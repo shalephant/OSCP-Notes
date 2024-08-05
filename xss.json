@@ -1,0 +1,9 @@
+{
+    "url": "https://github.com/shalephant/OSCP-Notes/blob/main/xss.yamll",
+    "urls": [
+        {
+            "url": "https://github.com/shalephant/OSCP-Notes/blob/main/xss.yaml",
+            "name": "Foo"
+        }
+    ]
+}
