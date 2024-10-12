@@ -6,3 +6,8 @@ cat file_name.txt | tr -s " " | cut -d " " -f 6
 
 for xss instead of <script>:
   <img src=x onerror=alert(document.domain)>'
+
+
+
+FUFF subdomains
+  ffuf -u http://195.54.178.5 -H "Host: FUZZ.vabaco.ge" -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt -mc all -ac
