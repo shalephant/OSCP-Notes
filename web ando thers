@@ -11,3 +11,10 @@ for xss instead of <script>:
 
 FUFF subdomains
   ffuf -u http://195.54.178.5 -H "Host: FUZZ.vabaco.ge" -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt -mc all -ac
+
+
+
+hashcat with rule:
+https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule
+
+└─$ hashcat -m 1420 --hex-salt hash.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/dive.rule 
