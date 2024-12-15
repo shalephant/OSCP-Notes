@@ -571,6 +571,10 @@ ACTIVE DIRECTORY:
             Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
             query exampl:
                 MATCH (m:Computer) RETURN m
+
+
+            or from local:
+                sudo bloodhound-python -d test.local -u test-adm -p tespass -ns 10.168.11.111 -c all
 Atak:
     Mimi:
 
