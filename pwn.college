@@ -75,3 +75,5 @@ except Exception as e:
       same
     XSS 4
       </textarea><script>alert("PWNED")</script>
+    XSS 5 
+      <script>fetch("/publish")</script>
