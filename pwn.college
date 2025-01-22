@@ -97,3 +97,5 @@ except Exception as e:
     </script>
 </body>
 </html>
+    CSRF 2 
+      same but POST
